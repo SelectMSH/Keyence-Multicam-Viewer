@@ -1,0 +1,22 @@
+{
+  "window_count": 4,
+  "urls": [
+    "http://192.168.1.81/",
+    "http://192.168.1.82/",
+    "http://192.168.1.81/",
+    "http://192.168.1.82/"
+  ],
+  "names": [
+    "Cam1",
+    "Cam2",
+    "Cam1",
+    "Cam2"
+  ],
+  "refresh_ms": 5000,
+  "auto_refresh": true,
+  "show_config_on_start": false,
+  "window_size": [
+    1200,
+    800
+  ]
+}

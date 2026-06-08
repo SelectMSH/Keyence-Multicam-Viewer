@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+                width: 99vw;
+                height: 99vh;
+                overflow: hidden;
+                background: black;
+                font-family: Arial, sans-serif;
+                
+            }
+            #topBar {
+                background: #1a1a1a;
+                display: flex;
+                gap: 2px;
+                transition: transform 0.2s ease;
+                z-index: 1000;
+                position: absolute;
+            }
+
+            #topBar.hidden {
+                transform: translateY(-80%);
+            }
+
+            button {
+                background: #2a2a2a;
+                border: 1px solid #444;
+                color: white;
+                padding: 6px 14px;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background: #3a3a3a;
+            }
+
+            #gridContainer {
+                display: grid;
+                gap: 1px;
+                width: 100vw;
+                height: 100vh;
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(2, 1fr);
+            }
+
+            .Window{
+                display: flex;
+                border: 1px solid #222;
+                align-items: center;
+                margin: auto;
+                position: relative;
+            }
+            
+            .Device-Name{
+                display: flex;
+                position: absolute;
+                top: 0;
+                left: 50%;
+                z-index: 10;      /* Higher z-index forces it on top */
+                flex: 0 0 20px;      /*  fixed banner height */
+                color: white;
+                font-size: 20px;
+                
+                background: grey;
+                letter-spacing: 1px;
+                
+                
+            }
+            .WindWrapper{
+                display: flex;
+                flex-direction: row;
+            }
+            .ImgWrapper{
+                z-index: 5;
+                position: relative;
+                display: flex;
+                
+                height: 50vh;
+          }
+
+            .tools-data{
+                display: flex;
+                width: 10;
+                height: 10;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div id="topBar">
+            <button onclick="refreshAll()">Refresh</button>
+        </div>
+
+        <div id="gridContainer">
+        </div>
+    </body>
+
+
+    <script>
+        const bar = document.getElementById("topBar");
+        var urls = ['http://192.168.1.81','http://192.168.1.82','http://192.168.1.82','http://192.168.1.81'];
+        var names = ['Cam1','Cam2','Cam3','Cam4'];
+        var count = 4;
+
+        function refreshImg() {
+        }
+        function refreshData() {
+
+        }
+
+        function refreshAll() {
+            document.querySelectorAll("img").forEach(refreshImg);
+            document.querySelectorAll("tools-data").forEach(refreshData);
+        }
+
+        function showBar() {
+            bar.classList.remove("hidden");
+        }
+        function hideBar(){
+            bar.classList.add("hidden");
+        }
+        function generateWindows(url,name){
+            const grid = document.getElementById("gridContainer");
+            const tooldata = document.createElement('div');
+            tooldata.className = "tools-data";
+            tooldata.textContent = "this will be something";
+
+            const img = document.createElement('img');
+            img.src = url + '/liveimage.jpg';
+            img.className = "ImgWrapper";
+            const frame = document.createElement('div');
+            frame.className = "WindWrapper";
+            const devName = document.createElement('div');
+            devName.className = "Device-Name";
+            devName.textContent = name;
+            const wind = document.createElement('div'); 
+            wind.className = "Window";
+
+            frame.append(img);
+            frame.append(tooldata);
+            wind.append(devName);
+            wind.append(frame);
+            grid.append(wind);
+        }
+        
+        bar.addEventListener("mouseenter",showBar);
+        bar.addEventListener("mouseleave", hideBar);
+
+        for (let i = 0; i<count;i++){
+            generateWindows(urls[i],names[i]);
+        }
+
+    </script>
+</html>
